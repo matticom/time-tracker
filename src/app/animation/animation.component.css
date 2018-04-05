@@ -1,0 +1,26 @@
+.text {
+width:200px;
+background:lightgray;
+margin: 100px auto;
+text-align:center;
+font-size:0.5rem;
+}
+
+/*https://gist.github.com/edmundojr/d2f7b87e129e7469c1f7ed0372a7b3d6*/
+/*.grid-overlay {*/
+  /*position: fixed;*/
+  /*top: 0;*/
+  /*left: 0;*/
+  /*right: 0;*/
+  /*bottom: 0;*/
+  /*z-index: 10000;*/
+  /*pointer-events: none;*/
+  /*opacity: .1;*/
+
+/*span {*/
+  /*display: block;*/
+  /*height: 100vh;*/
+  /*background: red;*/
+/*}*/
+
+/*}*/

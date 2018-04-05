@@ -1,0 +1,12 @@
+<div class="container mb-1">
+  <div class="text-center text-white"
+       [ngClass]="{
+                    'bg-success': success,
+                    'bg-danger': !success
+                    }"
+       style="font-size: 0.8rem;"
+       [@myAwesomeAnimation]='state'>
+    {{adviceText}}
+  </div>
+</div>
+

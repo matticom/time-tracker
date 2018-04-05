@@ -1,0 +1,146 @@
+<!--Filter Head-->
+
+<div>
+  <table class="table table-sm">
+    <thead class="text-success table-active">
+    <tr>
+      <th class="text-center">Filter</th>
+    </tr>
+    </thead>
+  </table>
+</div>
+
+
+<!--Filter Controls-->
+
+<form novalidate [formGroup]="filterForm" class="form-inline no-gutters">
+  <div style="width: 49%;" class=" input-group mb-2 input-group-sm">
+      <span style="width: 65px; height: 33px;" class="justify-content-center bg-light input-group-addon text-success my-0"
+            id="employee">Employee</span>
+    <select style="height: 33px;" class="form-control"
+            formControlName="employee"
+            required>
+      <option value=""></option>
+      <option *ngFor="let name of employees" [value]="name">{{name}}</option>
+    </select>
+  </div>
+
+  <div style="width: 49%;" class="ml-auto input-group mb-2 input-group-sm">
+      <span style="width: 65px; height: 33px;" class="justify-content-center bg-light input-group-addon text-success my-0"
+            id="project">Project</span>
+    <select style="height: 33px;" class="form-control"
+            formControlName="project"
+            required>
+      <option value=""></option>
+      <option *ngFor="let proj of projects" [value]="proj">{{proj}}</option>
+    </select>
+  </div>
+
+  <div style="width: 49%;" class="input-group mb-0 input-group-sm">
+      <span style="width: 65px;" class="justify-content-center input-group-addon text-success my-0"
+            id="start"
+            [ngClass]="{
+            'bg-light': !filterForm.errors,
+            'bg-danger text-light': filterForm.errors && (filterForm.dirty || filterForm.touched)
+            }">
+            Start</span>
+
+    <input type="date"
+           class="form-control"
+           formControlName="start"
+    >
+  </div>
+
+  <div style="width: 49%;" class="ml-auto input-group mb-0 ml-auto input-group-sm">
+      <span style="width: 65px;" class="justify-content-center input-group-addon text-success my-0"
+            id="end"
+            [ngClass]="{
+            'bg-light': !filterForm.errors,
+            'bg-danger text-light': filterForm.errors && (filterForm.dirty || filterForm.touched)
+
+            }">
+            End</span>
+
+    <input type="date"
+           class="form-control"
+           formControlName="end"
+    >
+  </div>
+
+  <div class="col-12 input-group mb-0 my-0 input-group-sm">
+      <span style="width: 100%;" class="justify-content-center text-center input-group-addon bg-danger text-light py-0 mt-2"
+            *ngIf="filterForm.errors && (filterForm.dirty || filterForm.touched)">
+        Start must be older than end
+      </span>
+  </div>
+</form>
+
+<!--Worksessions Head-->
+
+<div class="mt-4">
+  <table class="table table-sm">
+    <thead class="text-success  table-active">
+    <tr>
+      <th class="text-center">Worksessions</th>
+    </tr>
+    </thead>
+  </table>
+</div>
+
+
+<!--Worksession Table Small-->
+
+<div class="d-md-none mt-3">
+  <table class="table table-sm">
+    <thead class="text-success">
+    <tr>
+      <th class="text-center">Employee</th>
+      <th class="text-center">Project</th>
+      <th class="text-center">Start</th>
+      <th class="text-center">End</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let ws of filteredWorkSessions">
+      <td class="text-center" style="font-size: smaller">{{ws.employee}}</td>
+      <td class="text-center" style="font-size: smaller">{{ws.project}}</td>
+      <td class="text-center" style="font-size: smaller">{{ws.start | date: 'dd.MM.y HH:mm'}}</td>
+      <td class="text-center" style="font-size: smaller">{{ws.end | date: 'dd.MM.y HH:mm'}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!--Worksession Table Medium-->
+
+<div class=" d-none d-md-block mt-3">
+  <table class="table table-sm">
+    <thead class="text-success">
+    <tr>
+      <th class="text-center">Employee</th>
+      <th class="text-center">Project</th>
+      <th class="text-center">Start</th>
+      <th class="text-center">End</th>
+      <th class="text-center">Break</th>
+      <th class="text-center">Activities</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let ws of filteredWorkSessions">
+      <td class="text-center">{{ws.employee}}</td>
+      <td class="text-center">{{ws.project}}</td>
+      <td class="text-center">{{ws.start | date: 'dd.MM.y HH:mm'}}</td>
+      <td class="text-center">{{ws.end | date: 'dd.MM.y HH:mm'}}</td>
+      <td class="text-center">{{ws.breakLength}}</td>
+      <td class="text-center">{{ws.activities}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<pre>{{filterForm.value | json}}</pre>
+<pre>Form selectors errors:   '{{filterForm.errors | json}}'</pre>
+<pre>start selectors errors:   '{{startFC.errors | json}}'</pre>
+<pre>end selectors errors:   '{{endFC.errors | json}}'</pre>

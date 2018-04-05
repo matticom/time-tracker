@@ -1,0 +1,114 @@
+<div class="container">
+  <form novalidate [formGroup]="timeTrackerForm" (ngSubmit)="onSubmit()">
+
+    <!--project-->
+
+    <div class="input-group">
+      <span style="width: 94px;" class="justify-content-center input-group-addon text-success"
+            [ngClass]="{
+              'bg-light': !project.invalid,
+              'bg-danger text-light': project.invalid && (project.dirty || project.touched)
+              }"
+            id="project">Project</span>
+      <select class="form-control" aria-label="project" aria-describedby="project"
+              formControlName="project" required>
+        <option *ngFor="let proj of projects" [value]="proj">{{proj}}</option>
+      </select>
+    </div>
+    <div class="input-group mb-3 mt-0"
+         *ngIf="project.errors && (project.dirty || project.touched)">
+      <span style="width: 100%;" class="justify-content-center text-center input-group-addon bg-danger text-light py-0 mt-2"
+            *ngIf="project.errors.required">
+        Please choose a valid project
+      </span>
+    </div>
+
+    <!--start-->
+
+    <div class="input-group mt-3">
+      <span style="width: 94px;" class="justify-content-center input-group-addon text-success"
+            [ngClass]="{
+                    'bg-light': !start.errors,
+                    'bg-danger text-light': start.invalid
+                    }"
+            id="start">Start</span>
+      <input type="datetime-local" class="form-control"
+             aria-label="start" aria-describedby="start" formControlName="start"
+             required>
+    </div>
+    <div class="input-group mb-3 mt-0" *ngIf="start.errors">
+      <span style="width: 100%;" class="justify-content-center text-center input-group-addon bg-danger text-light py-0 mt-2"
+            *ngIf="start.errors.required">
+        invalid date
+      </span>
+      <span style="width: 100%;" class="justify-content-center text-center input-group-addon bg-danger text-light py-0 mt-2"
+            *ngIf="start.errors.earliestYear">
+        Please choose a year starting in {{start.errors.earliestYear.minYear}}
+      </span>
+    </div>
+
+
+    <!--end-->
+
+    <div class="input-group mt-3">
+      <span style="width: 94px;" class="justify-content-center input-group-addon text-success"
+            [ngClass]="{
+                    'bg-light': !timeTrackerForm.errors,
+                    'bg-danger text-light': timeTrackerForm.errors
+                    }"
+            id="end">End</span>
+      <input type="datetime-local" class="form-control"
+             aria-label="end" aria-describedby="end" formControlName="end"
+             >
+    </div>
+    <div class="input-group mb-3 mt-0"
+         *ngIf="timeTrackerForm.errors">
+      <span style="width: 100%;" class="justify-content-center text-center input-group-addon bg-danger text-light py-0 mt-2"
+            *ngIf="timeTrackerForm.errors.cmpDates">
+        End date must be later than start date
+      </span>
+    </div>
+
+
+    <!--break length-->
+
+    <div class="input-group mt-3">
+      <span style="width: 94px;" class="justify-content-center bg-light input-group-addon text-success" id="breakLength">Break</span>
+      <input type="number" min="0" max="1440" step="1" class="form-control"
+             aria-label="breakLength" aria-describedby="breakLength" formControlName="breakLength">
+    </div>
+
+
+    <!--activities-->
+
+      <div class="input-group mt-3">
+        <span style="width: 94px;" class="dropdown-toggle bg-light justify-content-center input-group-addon text-success" id="activities"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="dropdown-menu">
+            <a class="dropdown-item" (click)="addActivity('coding')">coding</a>
+            <a class="dropdown-item" (click)="addActivity('travelling')">travelling</a>
+            <a class="dropdown-item" (click)="addActivity('meeting')">meeting</a>
+          </div>
+        Activities</span>
+        <input type="text" class="form-control"
+               aria-label="activities" aria-describedby="activities" formControlName="activities">
+      </div>
+
+    <!--Submit button-->
+    <button type="submit" class="btn btn-success float-right mt-3">Submit</button>
+
+  </form>
+  <pre>{{timeTrackerForm.value | json}}</pre>
+
+  <pre>Form errors:   '{{timeTrackerForm.errors | json}}'</pre>
+  <pre>Form required:   '{{timeTrackerForm.valid | json}}'</pre>
+  <pre>Project required:   '{{project.valid | json}}'</pre>
+  <pre>Start required:   '{{start.valid | json}}'</pre>
+  <pre>end required:   '{{end.valid | json}}'</pre>
+  <pre>Break required:   '{{breakLength.valid | json}}'</pre>
+  <pre>Acti required:   '{{activities.valid | json}}'</pre>
+
+  <pre>start errors:   '{{start.errors | json}}'</pre>
+  <pre>end errors:   '{{end.errors | json}}'</pre>
+
+</div>

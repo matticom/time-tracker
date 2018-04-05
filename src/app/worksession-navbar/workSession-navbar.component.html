@@ -1,0 +1,79 @@
+<div class="container mt-0">
+  <nav class="navbar navbar-dark bg-dark">
+      <div class="btn-group navbar-brand mr-auto">
+        <button type="button" class="btn btn-success border-0 bg-dark"
+                [routerLink]="['']">Time Tracker
+        </button>
+        <button type="button" class="btn btn-success bg-dark dropdown-toggle dropdown-toggle-split "
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </button>
+        <div style="width: 160%;" class="dropdown-menu">
+          <a class="dropdown-item" [routerLink]="['/form']">
+            Time tracker form
+          </a>
+          <a class="dropdown-item" [routerLink]="['/listing']">
+            Worksessions listing
+          </a>
+
+
+          <!--Form in Dropdown bei kleiner gleich als MD-->
+
+          <div class="dropdown-divider d-lg-none"></div>
+          <div *ngIf="loggedUser">
+            <div class="d-lg-none px-4">
+              <div class="text-center mb-0" style="color: rgb(130,130,130);">{{loggedUser.email}}</div>
+              <div class="text-center mb-1">
+                <button type="button"
+                        class="btn btn-outline-success btn-sm"
+                        (click)="logout()">Logout
+                </button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!loggedUser">
+            <div class="d-lg-none">
+              <div class="text-muted px-4">User</div>
+              <div class="px-4">
+                <form novalidate [formGroup]="loginForm" (ngSubmit)="login()"
+                      class="my-lg-0">
+                  <input class="form-control pr-4 mt-2" type="text" placeholder="Email" formControlName="email">
+                  <input class="form-control pr-4 mt-2" type="password" placeholder="Password"
+                         formControlName="password">
+                  <div class="row justify-content-end">
+                    <button class="btn btn-outline-success mt-2 mr-3" type="submit">Sign In</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Form in der Navbar bei größer als MD-->
+
+      <div *ngIf="loggedUser">
+        <div class="d-none d-lg-block">
+          <div class="row">
+            <div class="badge badge-default text-success pt-2 mr-3"
+                 style="background-color: rgb(65,65,65);
+                        font-size: 1.0rem;">{{loggedUser.email}}
+            </div>
+            <span class="mr-3">
+              <button type="button"
+                      class="btn btn-success bg-dark btn-sm"
+                      (click)="logout()">Logout
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!loggedUser">
+        <form novalidate [formGroup]="loginForm" (ngSubmit)="login()"
+              class="form-inline my-lg-0 d-none d-lg-block">
+          <input class="form-control mr-sm-2" type="text" placeholder="Email" formControlName="email">
+          <input class="form-control mr-sm-2" type="password" placeholder="Password" formControlName="password">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign In</button>
+        </form>
+      </div>
+  </nav>
+</div>
